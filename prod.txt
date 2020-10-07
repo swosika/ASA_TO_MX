@@ -1,0 +1,979 @@
+=~=~=~=~=~=~=~=~=~=~=~= PuTTY log 2017.12.01 09:30:13 =~=~=~=~=~=~=~=~=~=~=~=
+sh run
+: Saved
+:
+ASA Version 8.6(1) 
+!
+hostname 78X445-ASA5555X
+domain-name 78X445.nycboe.org
+enable password 8Ry2YjIyt7RRXU24 encrypted
+passwd 2KFQnbNIdI.2KYOU encrypted
+names
+!
+interface GigabitEthernet0/0
+ channel-group 3 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/1
+ channel-group 1 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/2
+ nameif admin
+ security-level 70
+ ip address 10.95.63.225 255.255.255.248 
+!
+interface GigabitEthernet0/3
+ nameif service
+ security-level 90
+ ip address 10.95.63.241 255.255.255.248 
+!
+interface GigabitEthernet0/4
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/5
+ channel-group 1 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/6
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+!
+interface GigabitEthernet0/7
+ channel-group 3 mode active
+ no nameif
+ no security-level
+ no ip address
+!
+interface Management0/0
+ shutdown
+ no nameif
+ no security-level
+ no ip address
+ management-only
+!
+interface Port-channel1
+ nameif instructional
+ security-level 50
+ ip address 10.95.48.1 255.255.255.0 
+!
+interface Port-channel3
+ nameif wan
+ security-level 10
+ ip address 10.95.63.254 255.255.255.248 
+!
+banner exec /////////////////////////////////////////////////////////////////////////////
+banner exec /                                                                           /
+banner exec /                    *** NYC DOE CREDENTIALS REQUIRED ***                   /
+banner exec /                                                                           /
+banner exec /           Property of the New York City Department of Education           /
+banner exec /                                                                           /
+banner exec /                        Authorized Access Only !                           /
+banner exec /                                                                           /
+banner exec /                                                                           /
+banner exec /          Disconnect IMMEDIATELY if you are not an authorized user!        /
+banner exec /                                                                           /
+banner exec /                   *** NYC DOE CREDENTIALS REQUIRED ***                    /
+banner exec /                                                                           /
+banner exec /////////////////////////////////////////////////////////////////////////////
+banner motd V2.07
+boot system disk0:/asa861-smp-k8.bin
+ftp mode passive
+clock timezone EST -5
+clock summer-time EDT recurring
+dns server-group DefaultDNS
+ domain-name 78X445.nycboe.org
+object network obj-10.95.63.131
+ host 10.95.63.131
+object network obj-10.95.48.100
+ host 10.95.48.100
+object network obj-10.95.48.110
+ host 10.95.48.110
+object network obj-10.95.56.0
+ subnet 10.95.56.0 255.255.252.0
+object network obj-10.95.48.0
+ subnet 10.95.48.0 255.255.248.0
+object network obj-10.172.144.0
+ subnet 10.172.144.0 255.255.248.0
+object network obj-10.172.152.0
+ subnet 10.172.152.0 255.255.252.0
+object network obj-10.95.62.0
+ subnet 10.95.62.0 255.255.255.0
+object network obj-10.95.63.0
+ subnet 10.95.63.0 255.255.255.128
+object network obj-10.172.158.0
+ subnet 10.172.158.0 255.255.255.0
+object network obj-10.172.159.0
+ subnet 10.172.159.0 255.255.255.128
+object network obj-10.95.63.224
+ subnet 10.95.63.224 255.255.255.248
+object network obj-10.95.63.133
+ host 10.95.63.133
+object network obj-10.241.116.0
+ subnet 10.241.116.0 255.255.252.0
+object network obj-10.241.116.0-02
+ subnet 10.241.116.0 255.255.252.0
+object network obj-192.168.8.0
+ subnet 192.168.8.0 255.255.248.0
+object network obj-100.104.16.0
+ subnet 100.104.16.0 255.255.248.0
+object network obj-100.104.24.0
+ subnet 100.104.24.0 255.255.248.0
+object network obj-100.104.32.0
+ subnet 100.104.32.0 255.255.248.0
+object network obj-100.104.40.0
+ subnet 100.104.40.0 255.255.248.0
+object network obj-10.251.36.205
+ host 10.251.36.205
+object network obj-10.251.36.200
+ host 10.251.36.200
+object network obj-10.251.68.200
+ host 10.251.68.200
+object-group network PROCON-SERVER
+ network-object host 10.95.48.100
+object-group network CE1
+ network-object host 10.95.48.110
+object-group network OPT-SERVER
+ network-object host 10.95.62.9
+object-group network POS-SERVER
+ network-object host 10.95.62.15
+object-group network ADMIN-NETWORK
+ network-object 10.95.62.0 255.255.255.0
+ network-object 10.95.63.0 255.255.255.128
+ network-object 10.172.158.0 255.255.255.0
+ network-object 10.172.159.0 255.255.255.128
+ network-object 10.95.63.224 255.255.255.248
+object-group network ADMIN-REMOTE-NETWORK
+ network-object host 10.2.17.147
+ network-object host 10.2.17.148
+ network-object host 10.2.17.149
+ network-object 10.251.14.0 255.255.255.224
+ network-object 10.251.14.96 255.255.255.224
+ network-object host 10.2.17.144
+ network-object host 10.2.17.145
+ network-object host 10.2.17.146
+ network-object 10.2.19.64 255.255.255.224
+ network-object 10.4.94.0 255.255.255.224
+object-group network CAASS-NETWORK
+ network-object 10.241.119.64 255.255.255.224
+object-group network CENTRAL-AD-SERVERS
+ network-object host 10.0.17.21
+ network-object host 10.1.217.30
+ network-object host 10.2.21.61
+ network-object host 10.2.21.63
+ network-object host 10.2.21.64
+ network-object host 10.2.3.142
+ network-object host 10.2.3.143
+ network-object host 10.2.3.145
+ network-object host 10.2.3.159
+ network-object host 10.2.3.160
+ network-object host 10.2.3.162
+ network-object host 10.106.33.120
+ network-object host 10.106.49.120
+ network-object host 10.2.239.31
+object-group network CENTRAL-POS-SERVERS
+ network-object host 10.2.17.148
+ network-object host 10.2.21.174
+ network-object host 10.2.21.163
+ network-object host 10.2.21.173
+ network-object host 10.2.21.175
+ network-object 10.4.96.32 255.255.255.240
+ network-object host 10.2.17.145
+ network-object host 10.2.21.218
+object-group network CLEARPASS-SERVERS
+ network-object 10.251.34.0 255.255.255.192
+object-group network DFS-NETWORK
+ network-object 10.2.40.24 255.255.255.248
+ network-object host 10.3.5.11
+ network-object 10.3.5.12 255.255.255.252
+ network-object host 10.2.40.55
+ network-object 10.2.40.56 255.255.255.248
+ network-object host 10.2.40.64
+ network-object 10.3.5.16 255.255.255.248
+ network-object 10.3.5.24 255.255.255.254
+ network-object host 10.3.5.26
+ network-object 10.2.25.70 255.255.255.254
+ network-object 10.2.25.72 255.255.255.248
+ network-object 10.2.25.48 255.255.255.252
+ network-object 10.2.25.96 255.255.255.252
+ network-object 10.2.25.80 255.255.255.240
+ network-object 10.2.42.0 255.255.255.0
+object-group network DOE-CENTRAL-NETWORK
+ network-object 10.0.0.0 255.252.0.0
+ network-object 10.4.0.0 255.255.0.0
+object-group network DOE-DMZ
+ network-object 165.155.103.0 255.255.255.0
+ network-object 165.155.104.0 255.255.255.0
+ network-object 165.155.105.128 255.255.255.128
+ network-object 165.155.107.0 255.255.255.0
+object-group network ENTERPRISE-SECURITY-NETWORK
+ network-object 10.251.22.0 255.255.255.0
+object-group network ESX-ADM-NETWORK
+ network-object 10.241.118.224 255.255.255.224
+object-group network ESX-INS-NETWORK
+ network-object 10.241.118.192 255.255.255.224
+object-group network ESX-SHARE-NETWORK
+ network-object 10.241.119.0 255.255.255.224
+object-group network EUM-NETWORK
+ network-object 10.241.119.232 255.255.255.248
+object-group network FWAC-NETWORK
+ network-object 192.168.8.0 255.255.248.0
+object-group network GOVERLAN
+ network-object host 10.251.14.42
+object-group network IAD-DOMAIN-CONTROLLERS
+ network-object 10.251.38.0 255.255.255.0
+ network-object 10.251.54.0 255.255.255.0
+ network-object 10.251.70.0 255.255.255.0
+ network-object 10.251.86.0 255.255.255.0
+ network-object 10.251.102.0 255.255.255.0
+ network-object 10.251.118.0 255.255.255.0
+ network-object 10.251.134.0 255.255.255.0
+object-group network INSTRUCTIONAL-NETWORK
+ network-object 10.95.49.0 255.255.255.0
+ network-object 10.95.50.0 255.255.254.0
+ network-object 10.95.52.0 255.255.252.0
+ network-object 10.95.56.0 255.255.252.0
+ network-object 10.172.144.0 255.255.248.0
+ network-object host 10.95.63.131
+ network-object 10.172.152.0 255.255.252.0
+ network-object 100.104.16.0 255.255.248.0
+ network-object 100.104.24.0 255.255.248.0
+ network-object 100.104.32.0 255.255.248.0
+ network-object 100.104.40.0 255.255.248.0
+object-group network INSTRUCTIONAL-NETWORK-NAT
+ network-object 10.95.48.0 255.255.248.0
+ network-object 10.95.56.0 255.255.252.0
+ network-object 10.172.144.0 255.255.248.0
+ network-object 10.172.152.0 255.255.252.0
+ network-object host 10.95.63.131
+ network-object 100.104.16.0 255.255.248.0
+ network-object 100.104.24.0 255.255.248.0
+ network-object 100.104.32.0 255.255.248.0
+ network-object 100.104.40.0 255.255.248.0
+object-group network IPDVS-NETWORK
+ network-object 10.241.116.0 255.255.255.0
+object-group network IPDVS-REMOTE-MGMT
+ network-object 10.251.14.64 255.255.255.224
+object-group network IPDVS-WORKSTATIONS
+ network-object host 10.106.40.150
+ network-object host 10.106.40.151
+ network-object host 10.1.201.245
+ network-object host 10.106.1.155
+ network-object host 10.106.1.156
+ network-object host 10.106.17.155
+ network-object host 10.106.17.156
+ network-object host 10.106.33.155
+ network-object host 10.106.33.156
+ network-object host 10.106.49.155
+ network-object host 10.106.49.156
+ network-object host 10.106.65.155
+ network-object host 10.106.65.156
+ network-object host 10.106.81.155
+ network-object host 10.106.81.156
+ network-object host 10.4.102.241
+ network-object host 10.1.201.246
+ network-object host 10.106.113.155
+ network-object host 10.106.113.156
+ network-object host 10.107.17.155
+ network-object host 10.107.17.156
+ network-object host 10.107.97.155
+ network-object host 10.107.97.156
+object-group network LOCAL-CAASS-SERVERS
+ network-object host 10.241.119.68
+ network-object host 10.241.119.69
+object-group network LOCAL-CLEARPASS-SERVER
+ network-object host 10.95.48.120
+object-group network LOCAL-IPDVS-SERVERS
+ network-object host 10.241.116.6
+ network-object host 10.241.116.7
+ network-object host 10.241.116.251
+ network-object host 10.241.116.253
+object-group network LOCAL-PROCON-SERVER
+object-group network LOCAL-RADIUS-SERVER
+object-group network LONWORKS-LOCAL-MGMT
+ network-object 10.241.118.0 255.255.255.240
+object-group network LONWORKS-NETWORK
+ network-object 10.241.118.0 255.255.255.192
+object-group network LONWORKS-REMOTE-MGMT
+ network-object host 10.4.94.50
+ network-object host 10.2.17.147
+ network-object host 10.4.81.30
+ network-object host 10.4.81.31
+ network-object host 10.4.81.32
+ network-object host 10.4.81.50
+ network-object host 10.4.81.51
+ network-object host 10.4.81.52
+ network-object host 10.4.81.65
+ network-object host 10.2.21.27
+ network-object host 10.2.21.28
+ network-object host 10.2.21.29
+ network-object host 10.2.17.144
+ network-object host 10.251.14.104
+ network-object 10.251.14.0 255.255.255.224
+ network-object 10.251.14.96 255.255.255.224
+ network-object 10.2.19.64 255.255.255.224
+ network-object 10.4.94.0 255.255.255.224
+object-group network MAINFRAME-APPN-NETWORK
+ network-object host 10.2.53.237
+ network-object host 10.2.53.197
+ network-object 10.2.53.0 255.255.255.0
+object-group network METROTECH-NETWORK
+ network-object 10.251.31.192 255.255.255.192
+ network-object 10.251.23.0 255.255.255.0
+ network-object 10.251.16.0 255.255.252.0
+object-group network NGW-MGMT-SERVERS
+ network-object 10.251.28.0 255.255.255.192
+ network-object 10.251.34.0 255.255.255.192
+object-group network NMS-NETWORK
+ network-object 10.251.24.0 255.255.252.0
+object-group network OPT-NETWORK
+ network-object 10.4.96.0 255.255.255.0
+object-group network PAC-AND-FILTR-SERVERS
+ network-object host 10.251.36.200
+ network-object host 10.251.68.200
+ network-object host 10.251.84.200
+ network-object host 10.251.36.80
+ network-object host 10.251.68.80
+ network-object host 10.251.84.80
+ network-object host 10.251.36.205
+object-group network POS-NETWORK
+ network-object 10.241.119.96 255.255.255.224
+object-group network POS-REMOTE-MGMT-NETWORK
+ network-object host 10.4.94.50
+ network-object host 10.2.17.148
+ network-object 10.251.14.96 255.255.255.224
+ network-object 10.251.14.0 255.255.255.224
+ network-object host 10.4.96.43
+ network-object host 10.4.96.44
+ network-object host 10.2.17.145
+ network-object 10.2.19.64 255.255.255.224
+ network-object 10.4.94.0 255.255.255.224
+object-group network POS-SCCM-SVRS
+ network-object host 10.251.14.104
+ network-object host 10.4.96.151
+object-group network POS-SCOM-SVRS
+ network-object host 10.251.14.12
+ network-object host 10.4.94.26
+ network-object host 10.4.81.53
+ network-object host 10.251.87.187
+ network-object host 10.251.87.177
+ network-object host 10.2.17.144
+ network-object host 10.2.17.148
+object-group network POS-SERVER-v430
+ network-object host 10.241.119.98
+object-group network REMOTENOCS-NETWORK
+ network-object 10.106.15.0 255.255.255.224
+ network-object 10.106.31.0 255.255.255.224
+ network-object 10.106.47.0 255.255.255.224
+ network-object 10.106.63.0 255.255.255.224
+ network-object 10.106.79.0 255.255.255.224
+ network-object 10.106.95.0 255.255.255.224
+object-group network RESERVED-NETWORK
+ network-object 10.95.63.128 255.255.255.128
+object-group network ROC-REMOTE-NETWORK
+ network-object 10.251.14.32 255.255.255.224
+object-group network SCCM-MGMT-POINT-SVRS
+ network-object host 10.251.38.151
+ network-object 10.251.37.192 255.255.255.224
+object-group network SCHOOL-OF-ONE
+ network-object 10.1.215.0 255.255.255.0
+object-group network SERVER-MGMT
+ network-object 10.251.37.0 255.255.255.192
+object-group network SERVICE-NETWORK
+ network-object 10.241.116.0 255.255.252.0
+ network-object 10.95.63.240 255.255.255.248
+object-group network SERVICE-NETWORK-NAT
+ network-object 10.241.116.0 255.255.252.0
+object-group network SONET-CORE-INFRASTRUCTURE-SERVER-NETWORK
+ network-object 10.251.39.0 255.255.255.128
+ network-object 10.251.71.0 255.255.255.128
+ network-object 10.251.87.0 255.255.255.128
+ network-object 10.251.55.0 255.255.255.128
+ network-object 10.251.103.0 255.255.255.128
+ network-object 10.251.119.0 255.255.255.128
+ network-object 10.251.135.0 255.255.255.128
+ network-object host 10.251.36.80
+ network-object host 10.251.36.230
+ network-object host 10.251.39.140
+ network-object host 10.251.68.80
+ network-object host 10.251.68.230
+ network-object host 10.251.71.140
+ network-object host 10.251.84.80
+ network-object host 10.251.84.230
+ network-object host 10.251.87.140
+object-group network SYSTEMS-DOMAIN-CONTROLLERS
+ network-object host 10.251.16.20
+ network-object host 10.251.18.120
+ network-object host 10.251.18.186
+ network-object host 10.251.18.187
+ network-object host 10.251.38.21
+ network-object host 10.251.38.22
+ network-object host 10.251.54.21
+ network-object host 10.251.54.22
+ network-object host 10.251.70.21
+ network-object host 10.251.70.22
+ network-object host 10.251.86.21
+ network-object host 10.251.86.22
+ network-object host 10.251.102.21
+ network-object host 10.251.102.22
+ network-object host 10.251.118.21
+ network-object host 10.251.118.22
+ network-object host 10.251.134.21
+ network-object host 10.251.134.22
+object-group network TIMECLOCKS
+ network-object 10.241.118.64 255.255.255.240
+object-group network VLAN1-NETWORK
+ network-object 10.95.48.0 255.255.255.0
+object-group network WIRELESS-AP-NETWORK
+ network-object 10.95.58.0 255.255.255.0
+object-group network WIRELESS-TEMPERATURE-NETWORK
+ network-object 10.241.119.160 255.255.255.240
+object-group service ADMIN-REMOTE-INBOUND-RESTRICTED-PORTS tcp-udp
+ port-object eq 21
+ port-object eq 3343
+object-group service ADMIN-REMOTE-OUTBOUND-RESTRICTED-PORTS tcp-udp
+ port-object range 21 23
+ port-object eq 3389
+ port-object eq 5800
+ port-object eq 5900
+object-group service APPN-HPRIP-PORTS tcp-udp
+ port-object range 12000 12004
+object-group service ATLANTA-REMOTE-PORTS tcp-udp
+ port-object eq 3389
+object-group service CAASS-PORTS tcp-udp
+ port-object eq 1433
+ port-object eq 3389
+object-group service CENTRAL-POS-PORTS tcp-udp
+ port-object eq 389
+ port-object eq 3268
+ port-object eq 88
+ port-object eq 445
+ port-object range 1433 1434
+ port-object range 135 139
+ port-object eq 443
+ port-object eq www
+ port-object eq 21
+ port-object eq 3985
+object-group service CENTRAL-WINS-PORTS tcp-udp
+ port-object eq 1512
+ port-object eq 137
+ port-object eq 138
+ port-object eq 139
+object-group service CLEARPASS-PORTS tcp-udp
+ port-object eq domain
+ port-object eq 88
+ port-object eq 135
+ port-object eq 138
+ port-object eq 389
+ port-object eq 636
+ port-object eq 445
+ port-object eq 464
+ port-object eq 3268
+ port-object eq 3269
+object-group service DFS-SCAN-PORTS tcp-udp
+ port-object eq 9743
+ port-object eq 9780
+ port-object eq 9788
+object-group service FWAC-PORTS tcp
+ port-object eq www
+ port-object eq https
+ port-object eq 9543
+object-group service GOVERLAN-PORTS tcp-udp
+ port-object eq 21159
+object-group service IPDVS-ADMIN-PORTS udp
+ port-object range 8000 9000
+ port-object range 1024 2048
+object-group service IPDVS-PORTS tcp-udp
+ port-object range 5001 5009
+ port-object range 554 560
+ port-object eq 137
+ port-object eq 5500
+ port-object range 1024 2048
+object-group service LOCAL-POS-PORTS tcp-udp
+ port-object eq 21
+ port-object range 67 69
+ port-object eq www
+ port-object range 135 139
+ port-object range 161 162
+ port-object eq 280
+ port-object eq 443
+ port-object range 1433 1434
+ port-object eq 4011
+ port-object eq 5800
+ port-object eq 5900
+ port-object eq 8008
+ port-object eq 3985
+object-group service LOCAL-SCCM-PORTS tcp-udp
+ port-object eq www
+ port-object eq 443
+object-group service LONWORKS-MGMT-PORTS tcp-udp
+ port-object range 135 139
+ port-object eq 445
+ port-object range 1433 1434
+ port-object eq www
+ port-object eq 389
+ port-object eq 3268
+ port-object eq 88
+ port-object range 161 162
+ port-object eq 2967
+ port-object eq 443
+ port-object eq 3985
+object-group service NETBIOS-PORTS tcp-udp
+ port-object range 135 139
+ port-object eq 445
+object-group service NGW-MGMT-PORTS tcp-udp
+ port-object eq 21
+ port-object eq 22
+ port-object eq 23
+ port-object eq 69
+ port-object eq www
+ port-object eq 443
+ port-object eq 8211
+ port-object range 161 162
+object-group service PRINTING-PORTS tcp
+ port-object eq 9100
+object-group service RADIUS-PORTS tcp-udp
+ port-object range 1812 1813
+ port-object range 1645 1646
+object-group service ROC-REMOTE-PORTS tcp-udp
+ port-object eq 3389
+ port-object eq 5800
+ port-object eq 5900
+ port-object eq 445
+ port-object range 135 139
+object-group service ROC-REMOTE-INBOUND-PORTS tcp-udp
+ port-object eq 3389
+ port-object range 135 139
+ port-object eq 445
+ port-object eq 5800
+ port-object eq 5900
+ port-object eq 2967
+object-group service ROC-REMOTE-OUTBOUND-PORTS tcp-udp
+ port-object eq 2967
+object-group service SQL-PORTS tcp-udp
+ port-object range 1433 1434
+object-group service TELNET-SSH-PORTS tcp-udp
+ port-object eq 22
+ port-object eq 23
+object-group service WEB-PORTS tcp-udp
+ port-object eq www
+ port-object eq 443
+access-list wan-acl extended permit ip object-group DFS-NETWORK object-group ESX-SHARE-NETWORK 
+access-list wan-acl extended permit ip object-group SERVER-MGMT object-group VLAN1-NETWORK 
+access-list wan-acl extended permit icmp object-group SERVER-MGMT object-group VLAN1-NETWORK 
+access-list wan-acl extended permit ip object-group SCCM-MGMT-POINT-SVRS any 
+access-list wan-acl extended permit icmp object-group SCCM-MGMT-POINT-SVRS any 
+access-list wan-acl extended permit ip object-group METROTECH-NETWORK any 
+access-list wan-acl extended permit icmp object-group POS-SCCM-SVRS object-group POS-NETWORK 
+access-list wan-acl extended permit ip object-group POS-SCCM-SVRS object-group POS-NETWORK 
+access-list wan-acl extended permit icmp object-group POS-SCOM-SVRS object-group POS-NETWORK 
+access-list wan-acl extended permit ip object-group POS-SCOM-SVRS object-group POS-NETWORK 
+access-list wan-acl extended permit icmp object-group POS-SCCM-SVRS object-group LONWORKS-NETWORK 
+access-list wan-acl extended permit ip object-group POS-SCCM-SVRS object-group LONWORKS-NETWORK 
+access-list wan-acl extended permit icmp object-group POS-SCOM-SVRS object-group LONWORKS-NETWORK 
+access-list wan-acl extended permit ip object-group POS-SCOM-SVRS object-group LONWORKS-NETWORK 
+access-list wan-acl extended permit ip object-group REMOTENOCS-NETWORK any 
+access-list wan-acl extended permit ip object-group SONET-CORE-INFRASTRUCTURE-SERVER-NETWORK any 
+access-list wan-acl extended permit ip object-group IAD-DOMAIN-CONTROLLERS object-group PROCON-SERVER 
+access-list wan-acl extended permit ip object-group IAD-DOMAIN-CONTROLLERS object-group INSTRUCTIONAL-NETWORK 
+access-list wan-acl extended permit ip object-group NMS-NETWORK any 
+access-list wan-acl extended permit udp object-group MAINFRAME-APPN-NETWORK any object-group APPN-HPRIP-PORTS 
+access-list wan-acl extended permit ip object-group DFS-NETWORK object-group ADMIN-NETWORK 
+access-list wan-acl extended permit ip object-group ENTERPRISE-SECURITY-NETWORK any 
+access-list wan-acl extended permit icmp object-group ADMIN-REMOTE-NETWORK any 
+access-list wan-acl extended permit tcp object-group GOVERLAN object-group ADMIN-NETWORK object-group GOVERLAN-PORTS 
+access-list wan-acl extended permit udp object-group GOVERLAN object-group ADMIN-NETWORK object-group GOVERLAN-PORTS 
+access-list wan-acl extended permit tcp object-group GOVERLAN object-group INSTRUCTIONAL-NETWORK object-group GOVERLAN-PORTS 
+access-list wan-acl extended permit udp object-group GOVERLAN object-group INSTRUCTIONAL-NETWORK object-group GOVERLAN-PORTS 
+access-list wan-acl extended permit icmp any any echo-reply 
+access-list wan-acl extended permit icmp any any unreachable 
+access-list wan-acl extended permit icmp any any time-exceeded 
+access-list wan-acl extended permit tcp object-group CENTRAL-AD-SERVERS object-group CLEARPASS-PORTS object-group LOCAL-CLEARPASS-SERVER 
+access-list wan-acl extended permit udp object-group CENTRAL-AD-SERVERS object-group CLEARPASS-PORTS object-group LOCAL-CLEARPASS-SERVER 
+access-list wan-acl extended permit icmp object-group CENTRAL-AD-SERVERS object-group LOCAL-CLEARPASS-SERVER 
+access-list wan-acl extended deny tcp object-group ADMIN-REMOTE-NETWORK object-group ADMIN-NETWORK object-group ADMIN-REMOTE-INBOUND-RESTRICTED-PORTS 
+access-list wan-acl extended deny udp object-group ADMIN-REMOTE-NETWORK object-group ADMIN-NETWORK object-group ADMIN-REMOTE-INBOUND-RESTRICTED-PORTS 
+access-list wan-acl extended permit ip object-group ADMIN-REMOTE-NETWORK object-group ADMIN-NETWORK 
+access-list wan-acl extended permit icmp object-group IPDVS-WORKSTATIONS object-group LOCAL-IPDVS-SERVERS 
+access-list wan-acl extended permit ip object-group IPDVS-REMOTE-MGMT object-group IPDVS-NETWORK 
+access-list wan-acl extended permit tcp object-group ROC-REMOTE-NETWORK object-group ADMIN-NETWORK object-group ROC-REMOTE-INBOUND-PORTS 
+access-list wan-acl extended permit udp object-group ROC-REMOTE-NETWORK object-group ADMIN-NETWORK object-group ROC-REMOTE-INBOUND-PORTS 
+access-list wan-acl extended permit tcp object-group ROC-REMOTE-NETWORK object-group INSTRUCTIONAL-NETWORK object-group ROC-REMOTE-INBOUND-PORTS 
+access-list wan-acl extended permit udp object-group ROC-REMOTE-NETWORK object-group INSTRUCTIONAL-NETWORK object-group ROC-REMOTE-INBOUND-PORTS 
+access-list wan-acl extended permit tcp object-group IPDVS-WORKSTATIONS object-group LOCAL-IPDVS-SERVERS object-group IPDVS-PORTS 
+access-list wan-acl extended permit udp object-group IPDVS-WORKSTATIONS object-group LOCAL-IPDVS-SERVERS object-group IPDVS-PORTS 
+access-list wan-acl extended permit tcp object-group LONWORKS-REMOTE-MGMT object-group WIRELESS-TEMPERATURE-NETWORK 
+access-list wan-acl extended permit tcp object-group LONWORKS-REMOTE-MGMT object-group LONWORKS-NETWORK 
+access-list wan-acl extended permit udp object-group LONWORKS-REMOTE-MGMT object-group LONWORKS-NETWORK 
+access-list wan-acl extended permit tcp object-group DOE-CENTRAL-NETWORK object-group OPT-SERVER object-group NETBIOS-PORTS 
+access-list wan-acl extended permit udp object-group DOE-CENTRAL-NETWORK object-group OPT-SERVER object-group NETBIOS-PORTS 
+access-list wan-acl extended permit icmp object-group DOE-CENTRAL-NETWORK any 
+access-list wan-acl extended permit tcp object-group OPT-NETWORK object-group OPT-SERVER object-group SQL-PORTS 
+access-list wan-acl extended permit tcp object-group DOE-CENTRAL-NETWORK object-group POS-SERVER object-group SQL-PORTS 
+access-list wan-acl extended permit tcp object-group CENTRAL-POS-SERVERS object-group POS-NETWORK object-group LOCAL-POS-PORTS 
+access-list wan-acl extended permit udp object-group CENTRAL-POS-SERVERS object-group POS-NETWORK object-group LOCAL-POS-PORTS 
+access-list wan-acl extended permit ip object-group POS-REMOTE-MGMT-NETWORK object-group POS-NETWORK 
+access-list wan-acl extended permit tcp object-group NGW-MGMT-SERVERS object-group INSTRUCTIONAL-NETWORK object-group NGW-MGMT-PORTS 
+access-list wan-acl extended permit udp object-group NGW-MGMT-SERVERS object-group INSTRUCTIONAL-NETWORK object-group NGW-MGMT-PORTS 
+access-list wan-acl extended permit ip object-group CLEARPASS-SERVERS object-group WIRELESS-AP-NETWORK 
+access-list wan-acl extended permit icmp object-group NGW-MGMT-SERVERS object-group INSTRUCTIONAL-NETWORK 
+access-list wan-acl extended permit icmp object-group NGW-MGMT-SERVERS object-group VLAN1-NETWORK 
+access-list wan-acl extended permit udp object-group NGW-MGMT-SERVERS object-group VLAN1-NETWORK eq snmp 
+access-list wan-acl extended deny ip any any 
+access-list instructional-acl extended permit icmp object-group INSTRUCTIONAL-NETWORK object-group ESX-INS-NETWORK 
+access-list instructional-acl extended permit ip object-group INSTRUCTIONAL-NETWORK object-group ESX-INS-NETWORK 
+access-list instructional-acl extended permit icmp object-group INSTRUCTIONAL-NETWORK object-group ESX-SHARE-NETWORK 
+access-list instructional-acl extended permit ip object-group WIRELESS-AP-NETWORK object-group CLEARPASS-SERVERS 
+access-list instructional-acl extended permit tcp object-group WIRELESS-AP-NETWORK object-group NGW-MGMT-SERVERS 
+access-list instructional-acl extended permit udp object-group WIRELESS-AP-NETWORK object-group NGW-MGMT-SERVERS 
+access-list instructional-acl extended permit ip object-group INSTRUCTIONAL-NETWORK object-group ESX-SHARE-NETWORK 
+access-list instructional-acl extended permit ip object-group VLAN1-NETWORK object-group SERVER-MGMT 
+access-list instructional-acl extended deny ip any object-group SERVER-MGMT 
+access-list instructional-acl extended permit icmp object-group VLAN1-NETWORK object-group SERVER-MGMT 
+access-list instructional-acl extended deny icmp any object-group SERVER-MGMT 
+access-list instructional-acl extended permit tcp object-group LOCAL-CLEARPASS-SERVER object-group CENTRAL-AD-SERVERS object-group CLEARPASS-PORTS 
+access-list instructional-acl extended permit udp object-group LOCAL-CLEARPASS-SERVER object-group CENTRAL-AD-SERVERS object-group CLEARPASS-PORTS 
+access-list instructional-acl extended permit icmp object-group LOCAL-CLEARPASS-SERVER object-group CENTRAL-AD-SERVERS 
+access-list instructional-acl extended permit ip any object-group SCCM-MGMT-POINT-SVRS 
+access-list instructional-acl extended permit icmp object-group PROCON-SERVER object-group SCCM-MGMT-POINT-SVRS 
+access-list instructional-acl extended permit tcp object-group INSTRUCTIONAL-NETWORK object-group ROC-REMOTE-NETWORK object-group ROC-REMOTE-OUTBOUND-PORTS 
+access-list instructional-acl extended permit udp object-group INSTRUCTIONAL-NETWORK object-group ROC-REMOTE-NETWORK object-group ROC-REMOTE-OUTBOUND-PORTS 
+access-list instructional-acl extended deny ip any object-group ADMIN-NETWORK 
+access-list instructional-acl extended deny ip any object-group SERVICE-NETWORK 
+access-list instructional-acl extended deny tcp any object-group METROTECH-NETWORK object-group TELNET-SSH-PORTS 
+access-list instructional-acl extended permit ip object-group VLAN1-NETWORK object-group METROTECH-NETWORK 
+access-list instructional-acl extended deny tcp any object-group REMOTENOCS-NETWORK object-group TELNET-SSH-PORTS 
+access-list instructional-acl extended permit ip object-group VLAN1-NETWORK object-group REMOTENOCS-NETWORK 
+access-list instructional-acl extended permit ip object-group VLAN1-NETWORK object-group SONET-CORE-INFRASTRUCTURE-SERVER-NETWORK 
+access-list instructional-acl extended permit ip any object-group IAD-DOMAIN-CONTROLLERS 
+access-list instructional-acl extended permit icmp any object-group SCHOOL-OF-ONE 
+access-list instructional-acl extended permit tcp any object-group SCHOOL-OF-ONE object-group NETBIOS-PORTS 
+access-list instructional-acl extended permit udp any object-group SCHOOL-OF-ONE object-group NETBIOS-PORTS 
+access-list instructional-acl extended deny tcp any any object-group NETBIOS-PORTS 
+access-list instructional-acl extended deny udp any any object-group NETBIOS-PORTS 
+access-list instructional-acl extended permit ip object-group VLAN1-NETWORK any 
+access-list instructional-acl extended permit ip object-group INSTRUCTIONAL-NETWORK any 
+access-list instructional-acl extended permit icmp object-group VLAN1-NETWORK object-group NGW-MGMT-SERVERS 
+access-list instructional-acl extended permit udp object-group VLAN1-NETWORK object-group NGW-MGMT-SERVERS eq snmp 
+access-list instructional-acl extended deny ip any any 
+access-list admin-acl extended permit ip object-group ADMIN-NETWORK object-group ESX-SHARE-NETWORK 
+access-list admin-acl extended permit icmp object-group ADMIN-NETWORK object-group ESX-SHARE-NETWORK 
+access-list admin-acl extended permit ip object-group ADMIN-NETWORK object-group ESX-ADM-NETWORK 
+access-list admin-acl extended permit icmp object-group ADMIN-NETWORK object-group ESX-ADM-NETWORK 
+access-list admin-acl extended deny ip any object-group SERVER-MGMT 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group PROCON-SERVER object-group LOCAL-SCCM-PORTS 
+access-list admin-acl extended permit ip any object-group SCCM-MGMT-POINT-SVRS 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group METROTECH-NETWORK object-group NETBIOS-PORTS 
+access-list admin-acl extended permit udp object-group ADMIN-NETWORK object-group METROTECH-NETWORK object-group NETBIOS-PORTS 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group REMOTENOCS-NETWORK object-group NETBIOS-PORTS 
+access-list admin-acl extended permit udp object-group ADMIN-NETWORK object-group REMOTENOCS-NETWORK object-group NETBIOS-PORTS 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group SYSTEMS-DOMAIN-CONTROLLERS object-group CENTRAL-WINS-PORTS 
+access-list admin-acl extended permit udp object-group ADMIN-NETWORK object-group SYSTEMS-DOMAIN-CONTROLLERS object-group CENTRAL-WINS-PORTS 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group DOE-CENTRAL-NETWORK object-group NETBIOS-PORTS 
+access-list admin-acl extended permit udp object-group ADMIN-NETWORK object-group DOE-CENTRAL-NETWORK object-group NETBIOS-PORTS 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group LOCAL-IPDVS-SERVERS object-group IPDVS-PORTS 
+access-list admin-acl extended permit udp object-group ADMIN-NETWORK object-group LOCAL-IPDVS-SERVERS object-group IPDVS-PORTS 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group LOCAL-CAASS-SERVERS object-group CAASS-PORTS 
+access-list admin-acl extended permit udp object-group ADMIN-NETWORK object-group LOCAL-CAASS-SERVERS object-group CAASS-PORTS 
+access-list admin-acl extended permit tcp object-group ADMIN-NETWORK object-group WIRELESS-TEMPERATURE-NETWORK 
+access-list admin-acl extended deny ip any object-group INSTRUCTIONAL-NETWORK 
+access-list admin-acl extended deny ip any object-group SERVICE-NETWORK 
+access-list admin-acl extended deny tcp object-group ADMIN-NETWORK object-group ADMIN-REMOTE-NETWORK object-group ADMIN-REMOTE-OUTBOUND-RESTRICTED-PORTS 
+access-list admin-acl extended deny udp object-group ADMIN-NETWORK object-group ADMIN-REMOTE-NETWORK object-group ADMIN-REMOTE-OUTBOUND-RESTRICTED-PORTS 
+access-list admin-acl extended permit ip object-group ADMIN-NETWORK object-group ADMIN-REMOTE-NETWORK 
+access-list admin-acl extended deny tcp any any object-group NETBIOS-PORTS 
+access-list admin-acl extended deny udp any any object-group NETBIOS-PORTS 
+access-list admin-acl extended deny tcp any object-group METROTECH-NETWORK object-group TELNET-SSH-PORTS 
+access-list admin-acl extended deny tcp any object-group REMOTENOCS-NETWORK object-group TELNET-SSH-PORTS 
+access-list admin-acl extended permit ip object-group ADMIN-NETWORK any 
+access-list admin-acl extended deny ip any any 
+access-list service-acl extended permit tcp object-group ESX-SHARE-NETWORK object-group DFS-NETWORK object-group DFS-SCAN-PORTS 
+access-list service-acl extended permit icmp object-group ESX-SHARE-NETWORK object-group INSTRUCTIONAL-NETWORK echo-reply 
+access-list service-acl extended permit ip object-group ESX-ADM-NETWORK object-group ADMIN-NETWORK 
+access-list service-acl extended permit icmp object-group ESX-SHARE-NETWORK object-group ADMIN-NETWORK echo-reply 
+access-list service-acl extended permit icmp object-group ESX-ADM-NETWORK object-group ADMIN-NETWORK 
+access-list service-acl extended permit ip object-group ESX-INS-NETWORK object-group INSTRUCTIONAL-NETWORK 
+access-list service-acl extended permit icmp object-group ESX-INS-NETWORK object-group INSTRUCTIONAL-NETWORK 
+access-list service-acl extended permit icmp object-group POS-NETWORK object-group POS-SCCM-SVRS 
+access-list service-acl extended permit ip object-group POS-NETWORK object-group POS-SCCM-SVRS 
+access-list service-acl extended permit icmp object-group POS-NETWORK object-group POS-SCOM-SVRS 
+access-list service-acl extended permit ip object-group POS-NETWORK object-group POS-SCOM-SVRS 
+access-list service-acl extended permit udp object-group FWAC-NETWORK object-group IAD-DOMAIN-CONTROLLERS eq domain 
+access-list service-acl extended permit tcp object-group FWAC-NETWORK any object-group FWAC-PORTS 
+access-list service-acl extended deny ip object-group FWAC-NETWORK any 
+access-list service-acl extended permit icmp object-group LONWORKS-NETWORK object-group POS-SCCM-SVRS 
+access-list service-acl extended permit ip object-group LONWORKS-NETWORK object-group POS-SCCM-SVRS 
+access-list service-acl extended permit icmp object-group LONWORKS-NETWORK object-group POS-SCOM-SVRS 
+access-list service-acl extended permit ip object-group LONWORKS-NETWORK object-group POS-SCOM-SVRS 
+access-list service-acl extended deny ip any object-group SERVER-MGMT 
+access-list service-acl extended deny ip any object-group VLAN1-NETWORK 
+access-list service-acl extended deny ip any object-group INSTRUCTIONAL-NETWORK 
+access-list service-acl extended permit udp object-group LOCAL-IPDVS-SERVERS object-group IPDVS-WORKSTATIONS object-group IPDVS-ADMIN-PORTS 
+access-list service-acl extended permit udp object-group LOCAL-IPDVS-SERVERS object-group ADMIN-NETWORK object-group IPDVS-ADMIN-PORTS 
+access-list service-acl extended permit ip object-group IPDVS-NETWORK object-group IPDVS-REMOTE-MGMT 
+access-list service-acl extended permit icmp object-group POS-SERVER-v430 object-group DOE-CENTRAL-NETWORK 
+access-list service-acl extended permit tcp object-group POS-SERVER-v430 object-group DOE-CENTRAL-NETWORK object-group SQL-PORTS 
+access-list service-acl extended permit tcp object-group CAASS-NETWORK object-group ADMIN-NETWORK object-group PRINTING-PORTS 
+access-list service-acl extended permit ip any object-group IAD-DOMAIN-CONTROLLERS 
+access-list service-acl extended deny ip any object-group ADMIN-NETWORK 
+access-list service-acl extended deny tcp any object-group METROTECH-NETWORK object-group TELNET-SSH-PORTS 
+access-list service-acl extended deny tcp any object-group REMOTENOCS-NETWORK object-group TELNET-SSH-PORTS 
+access-list service-acl extended permit tcp object-group LONWORKS-NETWORK object-group LONWORKS-REMOTE-MGMT object-group LONWORKS-MGMT-PORTS 
+access-list service-acl extended permit udp object-group LONWORKS-NETWORK object-group LONWORKS-REMOTE-MGMT object-group LONWORKS-MGMT-PORTS 
+access-list service-acl extended permit icmp object-group LONWORKS-NETWORK object-group LONWORKS-REMOTE-MGMT 
+access-list service-acl extended deny tcp object-group LONWORKS-NETWORK any object-group NETBIOS-PORTS 
+access-list service-acl extended deny udp object-group LONWORKS-NETWORK any object-group NETBIOS-PORTS 
+access-list service-acl extended permit ip object-group LONWORKS-LOCAL-MGMT any 
+access-list service-acl extended deny tcp object-group CAASS-NETWORK any object-group NETBIOS-PORTS 
+access-list service-acl extended deny udp object-group CAASS-NETWORK any object-group NETBIOS-PORTS 
+access-list service-acl extended permit ip object-group CAASS-NETWORK any 
+access-list service-acl extended permit tcp object-group POS-NETWORK object-group CENTRAL-POS-SERVERS object-group CENTRAL-POS-PORTS 
+access-list service-acl extended permit udp object-group POS-NETWORK object-group CENTRAL-POS-SERVERS object-group CENTRAL-POS-PORTS 
+access-list service-acl extended permit ip object-group POS-NETWORK object-group POS-REMOTE-MGMT-NETWORK 
+access-list service-acl extended permit ip object-group POS-NETWORK object-group DOE-DMZ 
+access-list service-acl extended permit icmp object-group POS-NETWORK object-group CENTRAL-POS-SERVERS 
+access-list service-acl extended deny tcp any any object-group NETBIOS-PORTS 
+access-list service-acl extended deny udp any any object-group NETBIOS-PORTS 
+access-list service-acl extended permit icmp object-group SERVICE-NETWORK object-group NMS-NETWORK 
+access-list service-acl extended permit ip object-group SERVICE-NETWORK object-group METROTECH-NETWORK 
+access-list service-acl extended permit ip object-group SERVICE-NETWORK object-group REMOTENOCS-NETWORK 
+access-list service-acl extended permit ip object-group SERVICE-NETWORK object-group SONET-CORE-INFRASTRUCTURE-SERVER-NETWORK 
+access-list service-acl extended permit ip object-group SERVICE-NETWORK object-group PAC-AND-FILTR-SERVERS 
+access-list service-acl extended deny tcp object-group WIRELESS-TEMPERATURE-NETWORK any object-group NETBIOS-PORTS 
+access-list service-acl extended deny udp object-group WIRELESS-TEMPERATURE-NETWORK any object-group NETBIOS-PORTS 
+access-list service-acl extended permit ip object-group WIRELESS-TEMPERATURE-NETWORK any 
+access-list service-acl extended permit ip object-group TIMECLOCKS any 
+access-list service-acl extended permit ip object-group EUM-NETWORK any 
+access-list service-acl extended permit tcp object-group SERVICE-NETWORK any object-group WEB-PORTS 
+access-list service-acl extended deny ip any any 
+access-list default-acl extended deny ip any any 
+access-list acl-conn-param-tcp-01 extended permit tcp object-group INSTRUCTIONAL-NETWORK-NAT any 
+access-list acl-conn-param-tcp-02 extended permit tcp object-group ADMIN-NETWORK any 
+access-list acl-conn-param-tcp-03 extended permit tcp object-group SERVICE-NETWORK-NAT any 
+access-list acl-conn-param-tcp-04 extended permit tcp object-group CE1 any 
+access-list acl-conn-param-tcp-04 extended permit tcp object-group PROCON-SERVER any 
+access-list acl-conn-param-udp-01 extended permit udp object-group INSTRUCTIONAL-NETWORK-NAT any 
+access-list acl-conn-param-udp-02 extended permit udp object-group ADMIN-NETWORK any 
+access-list acl-conn-param-udp-03 extended permit udp object-group SERVICE-NETWORK-NAT any 
+access-list acl-conn-param-udp-04 extended permit udp object-group CE1 any 
+access-list acl-conn-param-udp-04 extended permit udp object-group PROCON-SERVER any 
+no pager
+logging asdm informational
+mtu admin 1500
+mtu service 1500
+mtu instructional 1500
+mtu wan 1500
+no failover
+icmp unreachable rate-limit 1 burst-size 1
+no asdm history enable
+arp timeout 14400
+nat (instructional,wan) source static obj-10.251.36.205 obj-10.251.68.200 dns
+!
+object network obj-10.95.63.131
+ nat (instructional,wan) static 10.95.63.131
+object network obj-10.95.48.100
+ nat (instructional,wan) static 10.95.48.100
+object network obj-10.95.48.110
+ nat (instructional,wan) static 10.95.48.110
+object network obj-10.95.56.0
+ nat (instructional,wan) static 10.95.56.0
+object network obj-10.95.48.0
+ nat (instructional,wan) static 10.95.48.0
+object network obj-10.172.144.0
+ nat (instructional,wan) static 10.172.144.0
+object network obj-10.172.152.0
+ nat (instructional,wan) static 10.172.152.0
+object network obj-10.95.62.0
+ nat (admin,wan) static 10.95.62.0
+object network obj-10.95.63.0
+ nat (admin,wan) static 10.95.63.0
+object network obj-10.172.158.0
+ nat (admin,wan) static 10.172.158.0
+object network obj-10.172.159.0
+ nat (admin,wan) static 10.172.159.0
+object network obj-10.95.63.224
+ nat (admin,wan) static 10.95.63.224
+object network obj-10.95.63.133
+ nat (admin,wan) static 10.95.63.133
+object network obj-10.241.116.0
+ nat (service,admin) static 10.241.116.0
+object network obj-10.241.116.0-02
+ nat (service,instructional) static 10.241.116.0
+object network obj-192.168.8.0
+ nat (service,wan) static 192.168.8.0
+object network obj-100.104.16.0
+ nat (instructional,wan) static 100.104.16.0
+object network obj-100.104.24.0
+ nat (instructional,wan) static 100.104.24.0
+object network obj-100.104.32.0
+ nat (instructional,wan) static 100.104.32.0
+object network obj-100.104.40.0
+ nat (instructional,wan) static 100.104.40.0
+access-group admin-acl in interface admin
+access-group service-acl in interface service
+access-group instructional-acl in interface instructional
+access-group wan-acl in interface wan
+route wan 0.0.0.0 0.0.0.0 10.95.63.253 1
+route instructional 10.95.48.0 255.255.248.0 10.95.48.2 1
+route instructional 10.95.56.0 255.255.252.0 10.95.48.2 1
+route admin 10.95.62.0 255.255.255.0 10.95.63.226 1
+route admin 10.95.63.0 255.255.255.128 10.95.63.226 1
+route instructional 10.95.63.131 255.255.255.255 10.95.48.2 1
+route admin 10.95.63.133 255.255.255.255 10.95.63.226 1
+route instructional 10.172.144.0 255.255.248.0 10.95.48.2 1
+route instructional 10.172.152.0 255.255.252.0 10.95.48.2 1
+route admin 10.172.158.0 255.255.255.0 10.95.63.226 1
+route admin 10.172.159.0 255.255.255.128 10.95.63.226 1
+route service 10.241.116.0 255.255.252.0 10.95.63.242 1
+route instructional 100.104.16.0 255.255.248.0 10.95.48.2 1
+route instructional 100.104.24.0 255.255.248.0 10.95.48.2 1
+route instructional 100.104.32.0 255.255.248.0 10.95.48.2 1
+route instructional 100.104.40.0 255.255.248.0 10.95.48.2 1
+route service 192.168.8.0 255.255.248.0 10.95.63.242 1
+timeout xlate 3:00:00
+timeout conn 1:00:00 half-closed 0:10:00 udp 0:02:00 icmp 0:00:02
+timeout sunrpc 1:00:00 h323 0:05:00 h225 1:00:00 mgcp 0:05:00 mgcp-pat 0:05:00
+timeout sip 0:30:00 sip_media 0:02:00 sip-invite 0:03:00 sip-disconnect 0:02:00
+timeout sip-provisional-media 0:02:00 uauth 0:30:00 absolute
+timeout tcp-proxy-reassembly 0:01:00
+timeout floating-conn 0:00:00
+dynamic-access-policy-record DfltAccessPolicy
+aaa-server TACACS-SERVER protocol tacacs+
+ reactivation-mode depletion deadtime 5
+aaa-server TACACS-SERVER (wan) host 10.251.24.101
+ key *****
+aaa-server TACACS-SERVER (wan) host 10.251.26.101
+ key *****
+user-identity default-domain LOCAL
+aaa authentication enable console TACACS-SERVER LOCAL
+aaa authentication http console TACACS-SERVER LOCAL
+aaa authentication ssh console TACACS-SERVER LOCAL
+aaa authorization command TACACS-SERVER LOCAL
+aaa accounting enable console TACACS-SERVER
+aaa accounting ssh console TACACS-SERVER
+aaa accounting command TACACS-SERVER
+http server enable
+snmp-server host wan 10.251.16.106 community *****
+snmp-server host wan 10.251.16.108 community *****
+snmp-server host wan 10.251.16.110 community *****
+no snmp-server location
+no snmp-server contact
+snmp-server community *****
+snmp-server enable traps snmp authentication linkup linkdown coldstart warmstart
+telnet 10.95.48.2 255.255.255.255 instructional
+telnet 10.95.48.6 255.255.255.255 instructional
+telnet timeout 30
+ssh 10.251.16.0 255.255.254.0 wan
+ssh 10.251.31.192 255.255.255.192 wan
+ssh 10.251.23.0 255.255.255.0 wan
+ssh 10.251.18.0 255.255.254.0 wan
+ssh 10.106.15.0 255.255.255.224 wan
+ssh 10.106.31.0 255.255.255.224 wan
+ssh 10.106.47.0 255.255.255.224 wan
+ssh 10.106.63.0 255.255.255.224 wan
+ssh 10.106.79.0 255.255.255.224 wan
+ssh 10.106.95.0 255.255.255.224 wan
+ssh 10.251.24.0 255.255.254.0 wan
+ssh 10.251.26.0 255.255.255.0 wan
+ssh timeout 30
+console timeout 15
+priority-queue wan
+  tx-ring-limit 128
+!
+tls-proxy maximum-session 1000
+!
+threat-detection basic-threat
+threat-detection statistics access-list
+no threat-detection statistics tcp-intercept
+ntp server 10.251.16.104 source wan
+ntp server 10.251.16.105 source wan
+username RWengineer password fuO4B6dl.JLc2bDW encrypted privilege 15
+!
+class-map class-conn-param-tcp-02
+ match access-list acl-conn-param-tcp-02
+class-map class-conn-param-udp-04
+ match access-list acl-conn-param-udp-04
+class-map class-conn-param-tcp-03
+ match access-list acl-conn-param-tcp-03
+class-map inspection_default
+ match default-inspection-traffic
+class-map class-conn-param-tcp-01
+ match access-list acl-conn-param-tcp-01
+class-map class-conn-param-udp-01
+ match access-list acl-conn-param-udp-01
+class-map class-conn-param-tcp-04
+ match access-list acl-conn-param-tcp-04
+class-map class-conn-param-udp-02
+ match access-list acl-conn-param-udp-02
+class-map class-conn-param-udp-03
+ match access-list acl-conn-param-udp-03
+!
+!
+policy-map type inspect dns preset_dns_map
+ parameters
+  message-length maximum client auto
+  message-length maximum 512
+policy-map policy-conn-param-admin
+ class class-conn-param-tcp-02
+  set connection per-client-max 2000 per-client-embryonic-max 200 
+ class class-conn-param-udp-02
+  set connection per-client-max 2000 
+policy-map policy-conn-param-service
+ class class-conn-param-tcp-03
+  set connection per-client-max 2000 per-client-embryonic-max 200 
+ class class-conn-param-udp-03
+  set connection per-client-max 2000 
+policy-map policy-conn-param-instructional
+ class class-conn-param-tcp-04
+  set connection per-client-embryonic-max 250 
+ class class-conn-param-udp-04
+ class class-conn-param-tcp-01
+  set connection per-client-max 2000 per-client-embryonic-max 200 
+ class class-conn-param-udp-01
+  set connection per-client-max 2000 
+policy-map global_policy
+ class inspection_default
+  inspect dns preset_dns_map 
+  inspect ftp 
+  inspect h323 h225 
+  inspect h323 ras 
+  inspect rsh 
+  inspect rtsp 
+  inspect esmtp 
+  inspect sqlnet 
+  inspect sunrpc 
+  inspect xdmcp 
+  inspect netbios 
+  inspect tftp 
+  inspect icmp error 
+  inspect ils 
+  inspect snmp 
+  inspect http 
+!
+service-policy global_policy global
+service-policy policy-conn-param-admin interface admin
+service-policy policy-conn-param-service interface service
+service-policy policy-conn-param-instructional interface instructional
+prompt hostname context 
+no call-home reporting anonymous
+Cryptochecksum:11c404131c5ead96119be6ed3eade33b
+: end
+
+78X445-ASA5555X# 
+
+78X445-ASA5555X# 
+
+78X445-ASA5555X# 
+prod.txt
+Displaying prod.txt.
