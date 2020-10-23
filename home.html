@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ASA To MX</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+</head>
+
+<script>
+
+function myFunction() {
+var text1= $('#text1').val();
+var text2= $('#text2').val();
+  $.ajax({
+              url: "/join",
+              type: "POST",
+              data: {text1:text1,
+              text2:text2}
+
+          }).done(function(response) {
+
+            var html= "<br><br><br><p> <b> RESULT : <b><p>";
+
+            response =response.result;
+                 $.each(response,function(key,val){
+                 console.log(val);
+                    html+="<p>"+val+"<p>"
+
+                });
+                html +="<br>";
+                $(".show-data").append(html);
+            });
+};
+
+  </script>
+<body>
+    <p>
+      <h1>ASA To MX</h1>
+        <br><br>
+
+            Please Enter Your ORG ID <input type="text" id="text1" name="text1"><br><br>
+            Please Enter Your API Key<input type="text" id="text2" name="text2"><br><br>
+    
+    <form method="POST" action="" enctype="multipart/form-data">
+      <p><input type="file" name="file"></p>
+    </form>
+            <button id="clicked" onclick="myFunction()">Submit</button>
+        </p>
+    <div class="show-data" >
+
+    </div>
+</body>
+</html>
