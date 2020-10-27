@@ -1,23 +1,27 @@
 import asaparser as ap
 import meraki_messenger as mm
+from flask import Flask, render_template, request
+import json 
 
-FNAME = input("Enter File Name: ")#ASA File for reading
+app = Flask(__name__)
 
+@app.route('/')
+def home():
+   return render_template('home.html')
 
-##################################################################################
-#lets begin by clearning the network
-print("\n==========CLEARING THE NETWORK FOR TESTING===========")
-print("this may take a while...")
+@app.route('/result',methods = ['POST', 'GET'])
+def result():
+   if request.method == 'POST':
+      result = request.form
+      ORG_ID = request.form['Organization ID']
+      API_KEY = request.form['API Key']
+      #FNAME = request.form['Converting From']
+      #print (ORG_ID, API_KEY, "ME")
+      #mm.me(API_KEY,ORG_ID)
+      mm.delete_all_network_groups(API_KEY,ORG_ID)
+      mm.delete_all_network_objects(API_KEY,ORG_ID)
+   return render_template('result.html',result = result)
 
-mm.delete_all_network_groups()
-mm.delete_all_network_objects()
-##################################################################################
+if __name__ == '__main__':
+   app.run(debug = True)
 
-print("\nreading the asa file...")
-
-#now we're going to read the asa file
-object_groups = ap.gather_data(FNAME)
-
-print("\n==========CREATING THE NETWORK GROUPS AND OBJECTS===========")
-#now we're going to create the network groups and objects
-mm.create_network_groups(object_groups)

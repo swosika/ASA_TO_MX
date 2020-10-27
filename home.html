@@ -1,54 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>ASA To MX</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<html>
+   <body>
 
-</head>
-
-<script>
-
-function myFunction() {
-var text1= $('#text1').val();
-var text2= $('#text2').val();
-  $.ajax({
-              url: "/join",
-              type: "POST",
-              data: {text1:text1,
-              text2:text2}
-
-          }).done(function(response) {
-
-            var html= "<br><br><br><p> <b> RESULT : <b><p>";
-
-            response =response.result;
-                 $.each(response,function(key,val){
-                 console.log(val);
-                    html+="<p>"+val+"<p>"
-
-                });
-                html +="<br>";
-                $(".show-data").append(html);
-            });
-};
-
-  </script>
-<body>
-    <p>
-      <h1>ASA To MX</h1>
-        <br><br>
-
-            Please Enter Your ORG ID <input type="text" id="text1" name="text1"><br><br>
-            Please Enter Your API Key<input type="text" id="text2" name="text2"><br><br>
-    
-    <form method="POST" action="" enctype="multipart/form-data">
-      <p><input type="file" name="file"></p>
-    </form>
-            <button id="clicked" onclick="myFunction()">Submit</button>
-        </p>
-    <div class="show-data" >
-
-    </div>
-</body>
+   	<h1>ASA To MX</h1>
+      <form action = "http://localhost:5000/result" method = "POST">
+         <p>Please Enter Your Organization ID: <input type = "text" id = "ORG" name = "Organization ID" /></p>
+         <p>Please Enter Your API Key: <input type = "text" id = "API" name = "API Key" /></p>
+         <p>Please Upload Your ASA File: <p><input type = "file" name = "Converting From" />
+         <p><input type = "submit" value = "Convert" /></p>
+      </form>
+   </body>
+<style>
+body {background-color: black;}
+h1   {color: chartreuse;}
+p    {color: white;}
+</style>
 </html>
